@@ -44,9 +44,9 @@ npm run dev
 Runs on:
 
 http://localhost:5173
+```
 
-
-🤝 Contributing
+## 🤝 Contributing
 
 Contributions are welcome!
 To contribute:
