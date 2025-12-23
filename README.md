@@ -3,6 +3,8 @@
 A color-driven UI preview generator that instantly shows how palettes look inside real UI components.
 Extract colors from images, generate random palettes, and preview Website, Material, Dashboard, and Minimal UIs — all live and 100% client-side.
 
+https://color-palette-three-chi.vercel.app/
+
 # 📸 Preview
 
 ![Color Storyboard Screenshot](./public/preview.png)
