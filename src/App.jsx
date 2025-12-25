@@ -95,64 +95,87 @@ export default function App() {
   };
 
   return (
-    <div className="app-frosted">
-      <aside className="left-sidebar">
-        <div className="brand">
-          <div className="logo-blob" style={{ background: selected }} />
-          <div>
-            <div style={{ fontWeight: 800 }}>Color Storyboard</div>
-            <div style={{ fontSize: 12, color: "#6b7280" }}>Frosted theme</div>
+    <div className="app-container">
+      {/* Minimal Navigation */}
+      <nav className="minimal-nav">
+        <div className="nav-content">
+          <div className="logo">
+            <div className="logo-blob" style={{ background: selected }} />
+            <span>ColorPalette</span>
           </div>
         </div>
+      </nav>
 
-        <nav className="mode-tabs">
-          <button
-            className={`mode ${mode === "website" ? "active" : ""}`}
-            onClick={() => setMode("website")}
-          >
-            Website
-          </button>
+      {/* Main App Interface */}
+      <div className="dashboard-layout">
+        <aside className="sidebar">
+          <div className="brand">
+            <div className="logo-blob" style={{ background: selected }} />
+            <div>
+              <div style={{ fontWeight: 800 }}>Color Storyboard</div>
+              <div style={{ fontSize: 12, color: "#6b7280" }}>Frosted theme</div>
+            </div>
+          </div>
 
-          <button
-            className={`mode ${mode === "material" ? "active" : ""}`}
-            onClick={() => setMode("material")}
-          >
-            Material
-          </button>
+          <nav className="mode-tabs">
+            {['website', 'material', 'dashboard', 'minimal'].map((tab) => (
+              <button
+                key={tab}
+                className={`mode ${mode === tab ? 'active' : ''}`}
+                onClick={() => setMode(tab)}
+                style={mode === tab ? { background: selected, color: 'white' } : {}}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </nav>
 
-          <button
-            className={`mode ${mode === "dashboard" ? "active" : ""}`}
-            onClick={() => setMode("dashboard")}
-          >
-            Dashboard
-          </button>
+          <div className="controls-section">
+            <DropzoneUpload onFile={handleUploadFile} extractOnDrop={extractPalette} />
+            <SidebarControls
+              palette={palette}
+              selected={selected}
+              setSelected={setSelected}
+              setPalette={setPalette}
+              randomPalette={randomPalette}
+              copyCss={copyCss}
+              copyTailwind={copyTailwind}
+            />
+          </div>
 
-          <button
-            className={`mode ${mode === "minimal" ? "active" : ""}`}
-            onClick={() => setMode("minimal")}
-          >
-            Minimal
-          </button>
-        </nav>
+          <div className="palette-preview">
+            <h3>Color Palette</h3>
+            <div className="palette-grid">
+              {palette.map((color, index) => (
+                <div 
+                  key={index} 
+                  className="palette-color" 
+                  style={{ background: color }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(color);
+                    alert(`Copied ${color} to clipboard`);
+                  }}
+                >
+                  <div className="color-info">
+                    <span>{color}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
 
-        <div style={{ marginTop: 14 }}>
-          <DropzoneUpload onFile={handleUploadFile} extractOnDrop={extractPalette} />
+        <main className="main-content">
+          <div className="preview-canvas">
+            <div className="canvas-inner">{renderPreview()}</div>
+          </div>
+        </main>
+      </div>
 
-          <SidebarControls
-            palette={palette}
-            selected={selected}
-            setSelected={setSelected}
-            setPalette={setPalette}
-            randomPalette={randomPalette}
-            copyCss={copyCss}
-            copyTailwind={copyTailwind}
-          />
-        </div>
-      </aside>
-
-      <main className="preview-canvas">
-        <div className="canvas-inner">{renderPreview()}</div>
-      </main>
+      {/* Simple Footer */}
+      <footer className="simple-footer">
+        <p>© {new Date().getFullYear()} ColorPalette - Free to use</p>
+      </footer>
     </div>
   );
 }
