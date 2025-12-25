@@ -109,7 +109,7 @@ export default function App() {
       {/* Main App Interface */}
       <div className="dashboard-layout">
         <aside className="sidebar">
-          <div className="brand">
+          <div className="brand hover-lift click-bounce">
             <div className="logo-blob" style={{ background: selected }} />
             <div>
               <div style={{ fontWeight: 800 }}>Color Storyboard</div>
@@ -121,7 +121,7 @@ export default function App() {
             {['website', 'material', 'dashboard', 'minimal'].map((tab) => (
               <button
                 key={tab}
-                className={`mode ${mode === tab ? 'active' : ''}`}
+                className={`mode ${mode === tab ? 'active' : ''} click-ripple`}
                 onClick={() => setMode(tab)}
                 style={mode === tab ? { background: selected, color: 'white' } : {}}
               >
@@ -143,13 +143,13 @@ export default function App() {
             />
           </div>
 
-          <div className="palette-preview">
+          <div className="palette-preview animate-fade-in">
             <h3>Color Palette</h3>
             <div className="palette-grid">
               {palette.map((color, index) => (
-                <div 
-                  key={index} 
-                  className="palette-color" 
+                <div
+                  key={index}
+                  className="palette-color hover-lift click-bounce"
                   style={{ background: color }}
                   onClick={() => {
                     navigator.clipboard.writeText(color);
@@ -166,7 +166,7 @@ export default function App() {
         </aside>
 
         <main className="main-content">
-          <div className="preview-canvas">
+          <div className="preview-canvas hover-glow">
             <div className="canvas-inner">{renderPreview()}</div>
           </div>
         </main>
